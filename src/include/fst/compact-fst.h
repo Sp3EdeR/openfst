@@ -455,7 +455,7 @@ bool DefaultCompactStore<Element, Unsigned>::Write(
 
 template <class Element, class Unsigned>
 const string &DefaultCompactStore<Element, Unsigned>::Type() {
-  static const string *const type = new string("compact");
+  static const std::unique_ptr<const string> type(new string("compact"));
   return *type;
 }
 
@@ -548,7 +548,7 @@ class DefaultCompactor {
   bool HasFixedOutdegree() const { return arc_compactor_->Size() != -1; }
 
   static const string &Type() {
-    static const string *const type = [] {
+    static const std::unique_ptr<const string> type([] {
       string type = "compact";
       if (sizeof(U) != sizeof(uint32)) type += std::to_string(8 * sizeof(U));
       type += "_";
@@ -558,7 +558,7 @@ class DefaultCompactor {
         type += CompactStore::Type();
       }
       return new string(type);
-    }();
+    }());
     return *type;
   }
 
@@ -1356,7 +1356,7 @@ class StringCompactor {
   }
 
   static const string &Type() {
-    static const string *const type = new string("string");
+    static const std::unique_ptr<const string> type(new string("string"));
     return *type;
   }
 
@@ -1397,7 +1397,7 @@ class WeightedStringCompactor {
   }
 
   static const string &Type() {
-    static const string *const type = new string("weighted_string");
+    static const std::unique_ptr<const string> type(new string("weighted_string"));
     return *type;
   }
 
@@ -1437,7 +1437,7 @@ class UnweightedAcceptorCompactor {
   }
 
   static const string &Type() {
-    static const string *const type = new string("unweighted_acceptor");
+    static const std::unique_ptr<const string> type(new string("unweighted_acceptor"));
     return *type;
   }
 
@@ -1478,7 +1478,7 @@ class AcceptorCompactor {
   }
 
   static const string &Type() {
-    static const string *const type = new string("acceptor");
+    static const std::unique_ptr<const string> type(new string("acceptor"));
     return *type;
   }
 
@@ -1519,7 +1519,7 @@ class UnweightedCompactor {
   }
 
   static const string &Type() {
-    static const string *const type = new string("unweighted");
+    static const std::unique_ptr<const string> type(new string("unweighted"));
     return *type;
   }
 

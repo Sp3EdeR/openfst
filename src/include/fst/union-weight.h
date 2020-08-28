@@ -105,7 +105,7 @@ class UnionWeight {
   }
 
   static const string &Type() {
-    static const string *const type = new string(W::Type() + "_union");
+    static const std::unique_ptr<const std::string> type(new string(W::Type() + "_union"));
     return *type;
   }
 

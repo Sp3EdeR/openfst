@@ -28,7 +28,7 @@ struct CustomArc {
   CustomArc() {}
 
   static const string &Type() {  // Arc type name
-    static const string *const type = new string("my");
+    static const std::unique_ptr<const string> type(new string("my"));
     return *type;
   }
 
@@ -64,7 +64,7 @@ class CustomCompactor {
   bool Compatible(const Fst<A> &fst) const { return true; }
 
   static const string &Type() {
-    static const string *const type = new string("my");
+    static const std::unique_ptr<const string> type(new string("my"));
     return *type;
   }
 

@@ -46,8 +46,8 @@ struct ArcTpl {
         nextstate(nextstate) {}
 
   static const string &Type() {
-    static const auto *const type =
-        new string(Weight::Type() == "tropical" ? "standard" : Weight::Type());
+    static const std::unique_ptr<const string> type(new string(
+        Weight::Type() == "tropical" ? "standard" : Weight::Type()));
     return *type;
   }
 };
@@ -82,10 +82,10 @@ struct StringArc {
         nextstate(nextstate) {}
 
   static const string &Type() {
-    static const auto *const type = new string(
+    static const std::unique_ptr<const string> type(new string(
         S == STRING_LEFT ? "left_standard_string"
                          : (S == STRING_RIGHT ? "right_standard_string"
-                                              : "restricted_standard_string"));
+                                              : "restricted_standard_string")));
     return *type;
   }
 };
@@ -118,7 +118,7 @@ struct GallicArc {
         nextstate(arc.nextstate) {}
 
   static const string &Type() {
-    static const auto *const type = new string(
+    static const std::unique_ptr<const string> type(new string(
         (G == GALLIC_LEFT
              ? "left_gallic_"
              : (G == GALLIC_RIGHT
@@ -126,7 +126,7 @@ struct GallicArc {
                     : (G == GALLIC_RESTRICT
                            ? "restricted_gallic_"
                            : (G == GALLIC_MIN ? "min_gallic_" : "gallic_")))) +
-        Arc::Type());
+        Arc::Type()));
     return *type;
   }
 };
@@ -155,7 +155,7 @@ struct ReverseArc {
         nextstate(nextstate) {}
 
   static const string &Type() {
-    static const auto *const type = new string("reverse_" + Arc::Type());
+    static const std::unique_ptr<const string> type(new string("reverse_" + Arc::Type()));
     return *type;
   }
 };
@@ -182,7 +182,7 @@ struct LexicographicArc {
         nextstate(nextstate) {}
 
   static const string &Type() {
-    static const string *const type = new string(Weight::Type());
+    static const std::unique_ptr<const string> type(new string(Weight::Type()));
     return *type;
   }
 };
@@ -209,7 +209,7 @@ struct ProductArc {
         nextstate(nextstate) {}
 
   static const string &Type() {
-    static const auto *const type = new string(Weight::Type());
+    static const std::unique_ptr<const string> type(new string(Weight::Type()));
     return *type;
   }
 };
