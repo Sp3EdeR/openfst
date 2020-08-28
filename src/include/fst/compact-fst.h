@@ -489,7 +489,7 @@ bool CompactArcStore<Element, Unsigned>::Write(
 
 template <class Element, class Unsigned>
 const std::string &CompactArcStore<Element, Unsigned>::Type() {
-  static const std::string *const type = new std::string("compact");
+  static const std::unique_ptr<const std::string> type(new std::string("compact"));
   return *type;
 }
 
@@ -634,7 +634,7 @@ class CompactArcCompactor {
   bool HasFixedOutdegree() const { return arc_compactor_->Size() != -1; }
 
   static const std::string &Type() {
-    static const std::string *const type = [] {
+    static const std::unique_ptr<const std::string> type([] {
       std::string type = "compact";
       if (sizeof(U) != sizeof(uint32)) type += std::to_string(8 * sizeof(U));
       type += "_";
@@ -644,7 +644,7 @@ class CompactArcCompactor {
         type += CompactStore::Type();
       }
       return new std::string(type);
-    }();
+    }());
     return *type;
   }
 
@@ -1399,7 +1399,7 @@ class StringCompactor {
   }
 
   static const std::string &Type() {
-    static const std::string *const type = new std::string("string");
+    static const std::unique_ptr<const std::string> type(new std::string("string"));
     return *type;
   }
 
@@ -1440,7 +1440,7 @@ class WeightedStringCompactor {
   }
 
   static const std::string &Type() {
-    static const std::string *const type = new std::string("weighted_string");
+    static const std::unique_ptr<const std::string> type(new std::string("weighted_string"));
     return *type;
   }
 
@@ -1480,7 +1480,7 @@ class UnweightedAcceptorCompactor {
   }
 
   static const std::string &Type() {
-    static const std::string *const type =
+    static const std::unique_ptr<const std::string> type(new std::string("unweighted_acceptor"));
         new std::string("unweighted_acceptor");
     return *type;
   }
@@ -1522,7 +1522,7 @@ class AcceptorCompactor {
   }
 
   static const std::string &Type() {
-    static const std::string *const type = new std::string("acceptor");
+    static const std::unique_ptr<const std::string> type(new std::string("acceptor"));
     return *type;
   }
 
@@ -1563,7 +1563,7 @@ class UnweightedCompactor {
   }
 
   static const std::string &Type() {
-    static const std::string *const type = new std::string("unweighted");
+    static const std::unique_ptr<const std::string> type(new std::string("unweighted"));
     return *type;
   }
 
