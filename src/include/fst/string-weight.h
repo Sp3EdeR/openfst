@@ -62,25 +62,25 @@ class StringWeight {
   explicit StringWeight(Label label) { PushBack(label); }
 
   static const StringWeight &Zero() {
-    static const auto *const zero = new StringWeight(Label(kStringInfinity));
+    static const std::unique_ptr<const StringWeight> zero(new StringWeight(Label(kStringInfinity)));
     return *zero;
   }
 
   static const StringWeight &One() {
-    static const auto *const one = new StringWeight();
+    static const std::unique_ptr<const StringWeight> one(new StringWeight());
     return *one;
   }
 
   static const StringWeight &NoWeight() {
-    static const auto *const no_weight = new StringWeight(Label(kStringBad));
+    static const std::unique_ptr<const StringWeight> no_weight(new StringWeight(Label(kStringBad)));
     return *no_weight;
   }
 
   static const string &Type() {
-    static const string *const type = new string(
+    static const std::unique_ptr<const string> type(new string(
         S == STRING_LEFT
             ? "left_string"
-            : (S == STRING_RIGHT ? "right_string" : "restricted_string"));
+            : (S == STRING_RIGHT ? "right_string" : "restricted_string")));
     return *type;
   }
 
@@ -587,14 +587,14 @@ struct GallicWeight
   }
 
   static const string &Type() {
-    static const string *const type = new string(
+    static const std::unique_ptr<const string> type(new string(
         G == GALLIC_LEFT
             ? "left_gallic"
             : (G == GALLIC_RIGHT
                    ? "right_gallic"
                    : (G == GALLIC_RESTRICT
                           ? "restricted_gallic"
-                          : (G == GALLIC_MIN ? "min_gallic" : "gallic"))));
+                          : (G == GALLIC_MIN ? "min_gallic" : "gallic")))));
     return *type;
   }
 
@@ -740,7 +740,7 @@ struct GallicWeight<Label, W, GALLIC>
   }
 
   static const string &Type() {
-    static const string *const type = new string("gallic");
+    static const std::unique_ptr<const string> type(new string("gallic"));
     return *type;
   }
 

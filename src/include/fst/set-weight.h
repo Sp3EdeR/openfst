@@ -98,19 +98,19 @@ class SetWeight {
   }
 
   static const SetWeight &NoWeight() {
-    static const auto *const no_weight = new SetWeight(Label(kSetBad));
+    static const std::unique_ptr<const SetWeight> no_weight(new SetWeight(Label(kSetBad)));
     return *no_weight;
   }
 
   static const string &Type() {
-    static const string *const type = new string(
+    static const std::unique_ptr<const std::string> type(new string(
         S == SET_UNION_INTERSECT
         ? "union_intersect_set"
         : (S == SET_INTERSECT_UNION
            ? "intersect_union_set"
            : (S == SET_INTERSECT_UNION_RESTRICT
               ? "restricted_set_intersect_union"
-              : "boolean_set")));
+              : "boolean_set"))));
     return *type;
   }
 
@@ -135,13 +135,13 @@ class SetWeight {
 
   // The empty set.
   static const SetWeight &EmptySet() {
-    static const auto *const empty = new SetWeight(Label(kSetEmpty));
+    static const std::unique_ptr<const SetWeight> empty(new SetWeight(Label(kSetEmpty)));
     return *empty;
   }
 
   // The univeral set.
   static const SetWeight &UnivSet() {
-    static const auto *const univ = new SetWeight(Label(kSetUniv));
+    static const std::unique_ptr<const SetWeight> univ(new SetWeight(Label(kSetUniv)));
     return *univ;
   }
 

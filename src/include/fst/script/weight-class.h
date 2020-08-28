@@ -143,7 +143,7 @@ class WeightClass {
 
   const string &Type() const {
     if (impl_) return impl_->Type();
-    static const string *const no_type = new string("none");
+    static const std::unique_ptr<const string> no_type(new string("none"));
     return *no_type;
   }
 
