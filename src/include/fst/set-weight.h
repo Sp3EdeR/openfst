@@ -97,7 +97,7 @@ class SetWeight {
   }
 
   static const SetWeight &NoWeight() {
-    static const auto *const no_weight = new SetWeight(Label(kSetBad));
+    static const std::unique_ptr<const SetWeight> no_weight(new SetWeight(Label(kSetBad)));
     return *no_weight;
   }
 
@@ -134,13 +134,13 @@ class SetWeight {
 
   // The empty set.
   static const SetWeight &EmptySet() {
-    static const auto *const empty = new SetWeight(Label(kSetEmpty));
+    static const std::unique_ptr<const SetWeight> empty(new SetWeight(Label(kSetEmpty)));
     return *empty;
   }
 
   // The univeral set.
   static const SetWeight &UnivSet() {
-    static const auto *const univ = new SetWeight(Label(kSetUniv));
+    static const std::unique_ptr<const SetWeight> univ(new SetWeight(Label(kSetUniv)));
     return *univ;
   }
 
