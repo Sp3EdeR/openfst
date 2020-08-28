@@ -198,9 +198,9 @@ class TropicalWeightTpl : public FloatWeightTpl<T> {
   }
 
   static const string &Type() {
-    static const string *const type =
+    static const std::unique_ptr<const string> type(
         new string(string("tropical") +
-                   FloatWeightTpl<T>::GetPrecisionString());
+                   FloatWeightTpl<T>::GetPrecisionString()));
     return *type;
   }
 
@@ -417,8 +417,8 @@ class LogWeightTpl : public FloatWeightTpl<T> {
   static constexpr LogWeightTpl NoWeight() { return Limits::NumberBad(); }
 
   static const string &Type() {
-    static const string *const type =
-        new string(string("log") + FloatWeightTpl<T>::GetPrecisionString());
+    static const std::unique_ptr<const string> type(new string(
+        std::string("log") + FloatWeightTpl<T>::GetPrecisionString()));
     return *type;
   }
 
@@ -638,8 +638,8 @@ class MinMaxWeightTpl : public FloatWeightTpl<T> {
   static constexpr MinMaxWeightTpl NoWeight() { return Limits::NumberBad(); }
 
   static const string &Type() {
-    static const string *const type =
-        new string(string("minmax") + FloatWeightTpl<T>::GetPrecisionString());
+    static const std::unique_ptr<const string> type(new string(
+        std::string("minmax") + FloatWeightTpl<T>::GetPrecisionString()));
     return *type;
   }
 

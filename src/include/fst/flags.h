@@ -75,8 +75,8 @@ template <typename T>
 class FlagRegister {
  public:
   static FlagRegister<T> *GetRegister() {
-    static auto reg = new FlagRegister<T>;
-    return reg;
+    static std::unique_ptr<FlagRegister<T>> reg(new FlagRegister<T>);
+    return reg.get();
   }
 
   const FlagDescription<T> &GetFlagDescription(const string &name) const {
