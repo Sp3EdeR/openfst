@@ -38,8 +38,8 @@ class GenericRegister {
   using Entry = EntryType;
 
   static RegisterType *GetRegister() {
-    static auto reg = new RegisterType;
-    return reg;
+    static std::unique_ptr<RegisterType> reg(new RegisterType);
+    return reg.get();
   }
 
   void SetEntry(const KeyType &key, const EntryType &entry) {
