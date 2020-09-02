@@ -7,6 +7,7 @@
 #define FST_ARC_H_
 
 #include <climits>
+#include <memory>
 #include <string>
 #include <type_traits>
 #include <utility>
