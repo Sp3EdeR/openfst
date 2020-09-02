@@ -9,6 +9,7 @@
 #include <dlfcn.h>
 #endif
 #include <map>
+#include <memory>
 #include <string>
 
 #include <fst/log.h>

@@ -7,6 +7,7 @@
 #define FST_STRING_WEIGHT_H_
 
 #include <list>
+#include <memory>
 #include <random>
 #include <string>
 #include <vector>

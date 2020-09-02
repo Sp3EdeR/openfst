@@ -11,6 +11,7 @@
 #include <cmath>
 #include <cstring>
 #include <limits>
+#include <memory>
 #include <random>
 #include <sstream>
 #include <string>

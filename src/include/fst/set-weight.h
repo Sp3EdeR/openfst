@@ -10,6 +10,7 @@
 
 #include <algorithm>
 #include <list>
+#include <memory>
 #include <random>
 #include <string>
 #include <vector>
